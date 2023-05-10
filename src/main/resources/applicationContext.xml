@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans.xsd
+http://www.springframework.org/schema/context
+http://www.springframework.org/schema/context/spring-context.xsd
+http://www.springframework.org/schema/util https://www.springframework.org/schema/util/spring-util.xsd">
+
+    <context:property-placeholder location="classpath:application.properties"/>
+
+<bean id="adventureMovie" class="org.example.adventureMovie">
+    <property name="name" value="${adventure.name}"/>
+    <property name="price" value="${adventure.price}"/>
+</bean>
+    <bean id="fightingMovie" class="org.example.FightingMovie">
+        <property name="name" value="${fighting.name}"/>
+        <property name="price" value="${fighting.price}"/>
+    </bean>
+    <bean id="romanticMovie" class="org.example.RomanticMovie">
+        <property name="name" value="${romantic.name}"/>
+        <property name="price" value="${romantic.price}"/>
+    </bean>
+
+    <bean id="cinema" class="org.example.Cinema">
+        <constructor-arg ref="fightingMovie" />
+        <constructor-arg ref="adventureMovie"/>
+    </bean>
+
+    <bean id="cinemaSet" class="org.example.Cinema">
+        <property name="cinemaServices" >
+            <list>
+                <ref bean="fightingMovie"/>
+                <ref bean="adventureMovie"/>
+                <ref bean="romanticMovie"/>
+            </list>
+        </property>
+    </bean>
+
+</beans>
